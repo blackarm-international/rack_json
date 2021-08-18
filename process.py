@@ -9,7 +9,7 @@ except:
 rack_name_list = []
 rack_name_rack_sysid = {}
 # titles
-print(', name, ciAssignmentGroup, ciCmdbStatus, ciIpAddress, ciNetworkSecurityZone, ciPrimaryBusinessService, ciServiceGroup, ciStatus, supportGroupEmail, supportGroupManager, supportGroupSlackChannel, url')
+print(',assignment_group_name,assignment_group_manager,fqdn,hardware_sku,location,model_category,model_name,model_height,model_end_of_firmware_support_date,model_max_children,name,primary_business_service_name,primary_business_service_product,rack_u,service_group_name,service_group_manager,slot,state,status,support_group_name,support_group_manager,url')
 # generate sorted racks
 for rack_sysid in rack_json.keys():
     rack_name = rack_json[rack_sysid]['rackName']
@@ -19,7 +19,7 @@ for rack_sysid in rack_json.keys():
 for rack_name in rack_name_list:
     rack_sysid = rack_name_rack_sysid[rack_name]
     url = 'https://godaddy.service-now.com/nav_to.do?uri=%2Fcmdb_ci_rack.do%3Fsys_id%' + rack_sysid
-    print('{0},,,,,,,,,,,,{1}'.format(rack_name, url))
+    print('{0},,,,,,,,,,,,,,,,,,,,,,{1}'.format(rack_name, url))
     if 'contains' in rack_json[rack_sysid]:
         rack_mounted_u_list = []
         rack_mounted_u_rack_mounted_sysid = {}
@@ -36,19 +36,51 @@ for rack_name in rack_name_list:
             rack_mounted_sysid = rack_mounted_u_rack_mounted_sysid[rack_mounted_u]
             # rack mounted object
             rack_mount = rack_json[rack_sysid]['contains'][rack_mounted_sysid]
+            assignmentGroupName = rack_mount['assignmentGroupName']
+            assignmentGroupManager = rack_mount['assignmentGroupManager']
+            fqdn = rack_mount['fqdn']
+            hardwareSku = rack_mount['hardwareSku']
+            location = rack_mount['location']
+            modelCategory = rack_mount['modelCategory']
+            modelName = rack_mount['modelName']
+            modelHeight = rack_mount['modelHeight']
+            modelEndOfFirmwareSupportDate = rack_mount['modelEndOfFirmwareSupportDate']
+            modelMaxChildren = rack_mount['modelMaxChildren']
             name = rack_mount['name']
-            ciAssignmentGroup = rack_mount['ciAssignmentGroup']
-            ciCmdbStatus = rack_mount['ciCmdbStatus']
-            ciIpAddress = rack_mount['ciIpAddress']
-            ciNetworkSecurityZone = rack_mount['ciNetworkSecurityZone']
-            ciPrimaryBusinessService = rack_mount['ciPrimaryBusinessService']
-            ciServiceGroup = rack_mount['ciServiceGroup']
-            ciStatus = rack_mount['ciStatus']
-            supportGroupEmail = rack_mount['supportGroupEmail']
+            primaryBusinessServiceName = rack_mount['primaryBusinessServiceName']
+            primaryBusinessServiceProduct = rack_mount['primaryBusinessServiceProduct']
+            rackU = rack_mount['rackU']
+            serviceGroupName = rack_mount['serviceGroupName']
+            serviceGroupManager = rack_mount['serviceGroupManager']
+            slot = rack_mount['slot']
+            state = rack_mount['state']
+            status = rack_mount['status']
+            supportGroupName = rack_mount['supportGroupName']
             supportGroupManager = rack_mount['supportGroupManager']
-            supportGroupSlackChannel = rack_mount['supportGroupSlackChannel']
-            url = 'https://godaddy.service-now.com/nav_to.do?uri=%2Falm_hardware.do%3Fsys_id%' + rack_mounted_sysid
-            print('  - unit_{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}'.format(rack_mounted_u, name, ciAssignmentGroup, ciCmdbStatus, ciIpAddress, ciNetworkSecurityZone, ciPrimaryBusinessService, ciServiceGroup, ciStatus, supportGroupEmail, supportGroupManager, supportGroupSlackChannel, url))
+            url = rack_mount['url']
+            print('  - unit_{}'.format(rack_mounted_u), end ="")
+            print(',{}'.format(assignmentGroupName), end ="")
+            print(',{}'.format(assignmentGroupManager), end ="")
+            print(',{}'.format(fqdn), end ="")
+            print(',{}'.format(hardwareSku), end ="")
+            print(',{}'.format(location), end ="")
+            print(',{}'.format(modelCategory), end ="")
+            print(',{}'.format(modelName), end ="")
+            print(',{}'.format(modelHeight), end ="")
+            print(',{}'.format(modelEndOfFirmwareSupportDate), end ="")
+            print(',{}'.format(modelMaxChildren), end ="")
+            print(',{}'.format(name), end ="")
+            print(',{}'.format(primaryBusinessServiceName), end ="")
+            print(',{}'.format(primaryBusinessServiceProduct), end ="")
+            print(',{}'.format(rackU), end ="")
+            print(',{}'.format(serviceGroupName), end ="")
+            print(',{}'.format(serviceGroupManager), end ="")
+            print(',{}'.format(slot), end ="")
+            print(',{}'.format(state), end ="")
+            print(',{}'.format(status), end ="")
+            print(',{}'.format(supportGroupName), end ="")
+            print(',{}'.format(supportGroupManager), end ="")
+            print(',{}'.format(url))
             # check if sleds exist
             if 'contains' in rack_json[rack_sysid]['contains'][rack_mounted_sysid]:
                 sled_slot_list = []
@@ -65,16 +97,48 @@ for rack_name in rack_name_list:
                     sled_sysid = sled_slot_sled_sysid[sled_slot]
                     # sled 
                     sled = rack_json[rack_sysid]['contains'][rack_mounted_sysid]['contains'][sled_sysid]
+                    assignmentGroupName = sled['assignmentGroupName']
+                    assignmentGroupManager = sled['assignmentGroupManager']
+                    fqdn = sled['fqdn']
+                    hardwareSku = sled['hardwareSku']
+                    location = sled['location']
+                    modelCategory = sled['modelCategory']
+                    modelName = sled['modelName']
+                    modelHeight = sled['modelHeight']
+                    modelEndOfFirmwareSupportDate = sled['modelEndOfFirmwareSupportDate']
+                    modelMaxChildren = sled['modelMaxChildren']
                     name = sled['name']
-                    ciAssignmentGroup = sled['ciAssignmentGroup']
-                    ciCmdbStatus = sled['ciCmdbStatus']
-                    ciIpAddress = sled['ciIpAddress']
-                    ciNetworkSecurityZone = sled['ciNetworkSecurityZone']
-                    ciPrimaryBusinessService = sled['ciPrimaryBusinessService']
-                    ciServiceGroup = sled['ciServiceGroup']
-                    ciStatus = sled['ciStatus']
-                    supportGroupEmail = sled['supportGroupEmail']
+                    primaryBusinessServiceName = sled['primaryBusinessServiceName']
+                    primaryBusinessServiceProduct = sled['primaryBusinessServiceProduct']
+                    rackU = sled['rackU']
+                    serviceGroupName = sled['serviceGroupName']
+                    serviceGroupManager = sled['serviceGroupManager']
+                    slot = sled['slot']
+                    state = sled['state']
+                    status = sled['status']
+                    supportGroupName = sled['supportGroupName']
                     supportGroupManager = sled['supportGroupManager']
-                    supportGroupSlackChannel = sled['supportGroupSlackChannel']
-                    url = 'https://godaddy.service-now.com/nav_to.do?uri=%2Falm_hardware.do%3Fsys_id%' + sled_sysid
-                    print('      - slot_{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}'.format(sled_slot, name, ciAssignmentGroup, ciCmdbStatus, ciIpAddress, ciNetworkSecurityZone, ciPrimaryBusinessService, ciServiceGroup, ciStatus, supportGroupEmail, supportGroupManager, supportGroupSlackChannel, url))
+                    url = sled['url']
+                    print('      - slot_{0}'.format(sled_slot), end ="")
+                    print(',{}'.format(assignmentGroupName), end ="")
+                    print(',{}'.format(assignmentGroupManager), end ="")
+                    print(',{}'.format(fqdn), end ="")
+                    print(',{}'.format(hardwareSku), end ="")
+                    print(',{}'.format(location), end ="")
+                    print(',{}'.format(modelCategory), end ="")
+                    print(',{}'.format(modelName), end ="")
+                    print(',{}'.format(modelHeight), end ="")
+                    print(',{}'.format(modelEndOfFirmwareSupportDate), end ="")
+                    print(',{}'.format(modelMaxChildren), end ="")
+                    print(',{}'.format(name), end ="")
+                    print(',{}'.format(primaryBusinessServiceName), end ="")
+                    print(',{}'.format(primaryBusinessServiceProduct), end ="")
+                    print(',{}'.format(rackU), end ="")
+                    print(',{}'.format(serviceGroupName), end ="")
+                    print(',{}'.format(serviceGroupManager), end ="")
+                    print(',{}'.format(slot), end ="")
+                    print(',{}'.format(state), end ="")
+                    print(',{}'.format(status), end ="")
+                    print(',{}'.format(supportGroupName), end ="")
+                    print(',{}'.format(supportGroupManager), end ="")
+                    print(',{}'.format(url))
