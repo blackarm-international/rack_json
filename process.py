@@ -30,7 +30,11 @@ for rack_name in rack_name_list:
             rack_mounted_u_list.append(rack_mounted_rack_u)
             rack_mounted_u_rack_mounted_sysid[rack_mounted_rack_u] = rack_mounted_sysid
         # loop through mounted rack_mounteds in rack_u order
+        print(rack_mounted_u_list)
         rack_mounted_u_list.sort()
+        print(rack_mounted_u_list)
+        rack_mounted_u_list = sorted(rack_mounted_u_list, reverse=True)
+        print(rack_mounted_u_list)
         rack_mounted_u_list.reverse()
         for rack_mounted_u in rack_mounted_u_list:
             rack_mounted_sysid = rack_mounted_u_rack_mounted_sysid[rack_mounted_u]
