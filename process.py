@@ -27,17 +27,13 @@ for rack_name in rack_name_list:
         for rack_mounted_sysid in rack_json[rack_sysid]['contains'].keys():
             rack_mounted = rack_json[rack_sysid]['contains'][rack_mounted_sysid]
             rack_mounted_rack_u = rack_mounted['rackU']
-            rack_mounted_u_list.append(rack_mounted_rack_u)
+            rack_mounted_u_list.append(int(rack_mounted_rack_u))
             rack_mounted_u_rack_mounted_sysid[rack_mounted_rack_u] = rack_mounted_sysid
         # loop through mounted rack_mounteds in rack_u order
-        print(rack_mounted_u_list)
         rack_mounted_u_list.sort()
-        print(rack_mounted_u_list)
         rack_mounted_u_list = sorted(rack_mounted_u_list, reverse=True)
-        print(rack_mounted_u_list)
-        rack_mounted_u_list.reverse()
         for rack_mounted_u in rack_mounted_u_list:
-            rack_mounted_sysid = rack_mounted_u_rack_mounted_sysid[rack_mounted_u]
+            rack_mounted_sysid = rack_mounted_u_rack_mounted_sysid[str(rack_mounted_u)]
             # rack mounted object
             rack_mount = rack_json[rack_sysid]['contains'][rack_mounted_sysid]
             assignmentGroupName = rack_mount['assignmentGroupName']
