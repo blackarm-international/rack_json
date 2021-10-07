@@ -57,7 +57,7 @@ with open("racks.csv", "w") as csvFile:
                 rackU = rack_mount['rackU']
                 serviceGroupName = rack_mount['serviceGroupName']
                 serviceGroupManager = rack_mount['serviceGroupManager']
-                slot = rack_mount['slot']
+                slot = ""
                 state = rack_mount['state']
                 status = rack_mount['status']
                 supportGroupName = rack_mount['supportGroupName']
