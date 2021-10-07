@@ -11,12 +11,13 @@ rack_name_rack_sysid = {}
 # open csv output
 with open("racks.csv", "w") as csvFile:
     # titles
-    print(',assignment_group_name,assignment_group_manager,fqdn,hardware_sku,location,model_category,model_name,model_height,model_end_of_firmware_support_date,model_max_children,name,primary_business_service_name,primary_business_service_product,rack_u,service_group_name,service_group_manager,slot,state,status,support_group_name,support_group_manager,url', file = csvFile)
+    print(',name, modelName, primaryBusinessServiceName, primaryBusinessServiceProduct, rackU, slot, cmdbNetworkSecurityZone, state, status, supportGroupName, supportGroupManager ,serviceGroupName, serviceGroupManager, assignmentGroupName, assignmentGroupManager, location, fqdn, hardwareSku, ipAddress, modelCategory, modelHeight, modelEndOfFirmwareSupportDate, modelMaxChildren, url', file = csvFile)
     # generate sorted racks
     for rack_sysid in rack_json.keys():
         rack_name = rack_json[rack_sysid]['rackName']
         rack_name_list.append(rack_name)
         rack_name_rack_sysid[rack_name] = rack_sysid
+        rack_name_list.sort()
     # loop through racks
     for rack_name in rack_name_list:
         rack_sysid = rack_name_rack_sysid[rack_name]
@@ -40,8 +41,10 @@ with open("racks.csv", "w") as csvFile:
                 rack_mount = rack_json[rack_sysid]['contains'][rack_mounted_sysid]
                 assignmentGroupName = rack_mount['assignmentGroupName']
                 assignmentGroupManager = rack_mount['assignmentGroupManager']
+                cmdbNetworkSecurityZone = rack_mount['cmdbNetworkSecurityZone']
                 fqdn = rack_mount['fqdn']
                 hardwareSku = rack_mount['hardwareSku']
+                ipAddress = rack_mount['ipAddress']
                 location = rack_mount['location']
                 modelCategory = rack_mount['modelCategory']
                 modelName = rack_mount['modelName']
@@ -61,27 +64,29 @@ with open("racks.csv", "w") as csvFile:
                 supportGroupManager = rack_mount['supportGroupManager']
                 url = rack_mount['url']
                 print('  - unit_{}'.format(rack_mounted_u), end ="", file = csvFile)
-                print(',{}'.format(assignmentGroupName), end ="", file = csvFile)
-                print(',{}'.format(assignmentGroupManager), end ="", file = csvFile)
-                print(',{}'.format(fqdn), end ="", file = csvFile)
-                print(',{}'.format(hardwareSku), end ="", file = csvFile)
-                print(',{}'.format(location), end ="", file = csvFile)
-                print(',{}'.format(modelCategory), end ="", file = csvFile)
-                print(',{}'.format(modelName), end ="", file = csvFile)
-                print(',{}'.format(modelHeight), end ="", file = csvFile)
-                print(',{}'.format(modelEndOfFirmwareSupportDate), end ="", file = csvFile)
-                print(',{}'.format(modelMaxChildren), end ="", file = csvFile)
                 print(',{}'.format(name), end ="", file = csvFile)
+                print(',{}'.format(modelName), end ="", file = csvFile)
                 print(',{}'.format(primaryBusinessServiceName), end ="", file = csvFile)
                 print(',{}'.format(primaryBusinessServiceProduct), end ="", file = csvFile)
                 print(',{}'.format(rackU), end ="", file = csvFile)
-                print(',{}'.format(serviceGroupName), end ="", file = csvFile)
-                print(',{}'.format(serviceGroupManager), end ="", file = csvFile)
                 print(',{}'.format(slot), end ="", file = csvFile)
+                print(',{}'.format(cmdbNetworkSecurityZone), end ="", file = csvFile)
                 print(',{}'.format(state), end ="", file = csvFile)
                 print(',{}'.format(status), end ="", file = csvFile)
                 print(',{}'.format(supportGroupName), end ="", file = csvFile)
                 print(',{}'.format(supportGroupManager), end ="", file = csvFile)
+                print(',{}'.format(serviceGroupName), end ="", file = csvFile)
+                print(',{}'.format(serviceGroupManager), end ="", file = csvFile)
+                print(',{}'.format(assignmentGroupName), end ="", file = csvFile)
+                print(',{}'.format(assignmentGroupManager), end ="", file = csvFile)
+                print(',{}'.format(location), end ="", file = csvFile)
+                print(',{}'.format(fqdn), end ="", file = csvFile)
+                print(',{}'.format(hardwareSku), end ="", file = csvFile)
+                print(',{}'.format(ipAddress), end ="", file = csvFile)
+                print(',{}'.format(modelCategory), end ="", file = csvFile)
+                print(',{}'.format(modelHeight), end ="", file = csvFile)
+                print(',{}'.format(modelEndOfFirmwareSupportDate), end ="", file = csvFile)
+                print(',{}'.format(modelMaxChildren), end ="", file = csvFile)
                 print(',{}'.format(url), file = csvFile)
                 # check if sleds exist
                 if 'contains' in rack_json[rack_sysid]['contains'][rack_mounted_sysid]:
@@ -101,8 +106,10 @@ with open("racks.csv", "w") as csvFile:
                         sled = rack_json[rack_sysid]['contains'][rack_mounted_sysid]['contains'][sled_sysid]
                         assignmentGroupName = sled['assignmentGroupName']
                         assignmentGroupManager = sled['assignmentGroupManager']
+                        cmdbNetworkSecurityZone = sled['cmdbNetworkSecurityZone']
                         fqdn = sled['fqdn']
                         hardwareSku = sled['hardwareSku']
+                        ipAddress = sled['ipAddress']
                         location = sled['location']
                         modelCategory = sled['modelCategory']
                         modelName = sled['modelName']
@@ -122,25 +129,27 @@ with open("racks.csv", "w") as csvFile:
                         supportGroupManager = sled['supportGroupManager']
                         url = sled['url']
                         print('      - slot_{0}'.format(sled_slot), end ="", file = csvFile)
-                        print(',{}'.format(assignmentGroupName), end ="", file = csvFile)
-                        print(',{}'.format(assignmentGroupManager), end ="", file = csvFile)
-                        print(',{}'.format(fqdn), end ="", file = csvFile)
-                        print(',{}'.format(hardwareSku), end ="", file = csvFile)
-                        print(',{}'.format(location), end ="", file = csvFile)
-                        print(',{}'.format(modelCategory), end ="", file = csvFile)
-                        print(',{}'.format(modelName), end ="", file = csvFile)
-                        print(',{}'.format(modelHeight), end ="", file = csvFile)
-                        print(',{}'.format(modelEndOfFirmwareSupportDate), end ="", file = csvFile)
-                        print(',{}'.format(modelMaxChildren), end ="", file = csvFile)
                         print(',{}'.format(name), end ="", file = csvFile)
+                        print(',{}'.format(modelName), end ="", file = csvFile)
                         print(',{}'.format(primaryBusinessServiceName), end ="", file = csvFile)
                         print(',{}'.format(primaryBusinessServiceProduct), end ="", file = csvFile)
                         print(',{}'.format(rackU), end ="", file = csvFile)
-                        print(',{}'.format(serviceGroupName), end ="", file = csvFile)
-                        print(',{}'.format(serviceGroupManager), end ="", file = csvFile)
                         print(',{}'.format(slot), end ="", file = csvFile)
+                        print(',{}'.format(cmdbNetworkSecurityZone), end ="", file = csvFile)
                         print(',{}'.format(state), end ="", file = csvFile)
                         print(',{}'.format(status), end ="", file = csvFile)
                         print(',{}'.format(supportGroupName), end ="", file = csvFile)
                         print(',{}'.format(supportGroupManager), end ="", file = csvFile)
+                        print(',{}'.format(serviceGroupName), end ="", file = csvFile)
+                        print(',{}'.format(serviceGroupManager), end ="", file = csvFile)
+                        print(',{}'.format(assignmentGroupName), end ="", file = csvFile)
+                        print(',{}'.format(assignmentGroupManager), end ="", file = csvFile)
+                        print(',{}'.format(location), end ="", file = csvFile)
+                        print(',{}'.format(fqdn), end ="", file = csvFile)
+                        print(',{}'.format(hardwareSku), end ="", file = csvFile)
+                        print(',{}'.format(ipAddress), end ="", file = csvFile)
+                        print(',{}'.format(modelCategory), end ="", file = csvFile)
+                        print(',{}'.format(modelHeight), end ="", file = csvFile)
+                        print(',{}'.format(modelEndOfFirmwareSupportDate), end ="", file = csvFile)
+                        print(',{}'.format(modelMaxChildren), end ="", file = csvFile)
                         print(',{}'.format(url), file = csvFile)
