@@ -22,7 +22,7 @@ with open("racks.csv", "w") as csvFile:
     for rack_name in rack_name_list:
         rack_sysid = rack_name_rack_sysid[rack_name]
         url = 'https://godaddy.service-now.com/nav_to.do?uri=%2Fcmdb_ci_rack.do%3Fsys_id%' + rack_sysid
-        print('{0},,,,,,,,,,,,,,,,,,,,,,{1}'.format(rack_name, url), file = csvFile)
+        print('{0},,,,,,,,,,,,,,,,,,,,,,,,{1}'.format(rack_name, url), file = csvFile)
         if 'contains' in rack_json[rack_sysid]:
             rack_mounted_u_list = []
             rack_mounted_u_rack_mounted_sysid = {}
