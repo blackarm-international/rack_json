@@ -115,7 +115,7 @@ with open("racks.csv", "w") as csvFile:
                         modelName = sled['modelName']
                         modelHeight = sled['modelHeight']
                         modelEndOfFirmwareSupportDate = sled['modelEndOfFirmwareSupportDate']
-                        modelMaxChildren = sled['modelMaxChildren']
+                        modelMaxChildren = ""
                         name = sled['name']
                         primaryBusinessServiceName = sled['primaryBusinessServiceName']
                         primaryBusinessServiceProduct = sled['primaryBusinessServiceProduct']
